@@ -10,6 +10,11 @@
 using namespace std;
 
 bool grabacionValida(audio s, int prof, int freq);
+bool enRango(audio s, int prof);
+bool micFunciona(audio s, int freq);
+audio subseq(audio s, int i, int j);
+bool sonTodosCeros(audio a);
+
 
 int elAcaparador(sala m, int freq, int prof);
 
