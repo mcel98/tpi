@@ -83,9 +83,64 @@ sala flashElPerezoso(sala m, int prof, int freq) {
 /************************** EJERCICIO silencios **************************/
 lista_intervalos silencios(audio s, int prof, int freq, int umbral) {
     lista_intervalos res;
+    for(int i=0;i<s.size();i++){
+        for(int j=i; j<s.size();j++){
+            intervalo tupla;
+            get<0>(tupla) =(float)i/(float)freq;
+            get<1>(tupla) =(float)j/(float)freq;
+            if(esSilencio(s,tupla,umbral,i,j)) {
+                res.push_back(tupla);
+
+            }
+
+        }
+
+    }
+
+
     return res;
 }
 
+
+
+bool noSuperaUmbral (audio s, int i, int j,int umbral){
+    bool res = true;
+    for(auto k= i; k <= j; k++) {
+        if (s[k] > umbral) {
+            res = false;
+
+        }
+    }
+        return res;
+ }
+
+
+bool noHaySilencioMayor(audio s, int i, int j, int umbral) {
+    bool res = true;
+
+    if ( i > 0 ) {
+        if (abs(s[i - 1]) < umbral) {
+            res = false;
+        }
+    }else if(j < s.size()){
+        if(abs(s[j+1])<umbral) {
+            res = false;
+        }
+    }
+
+   return res;
+}
+
+
+
+bool esSilencio (audio s,intervalo inter,int umbral,int i,int j){
+    bool res = false;
+    if((get<1>(inter) - get<0>(inter) > 0.1)  && noSuperaUmbral(s, i,j, umbral) && noHaySilencioMayor(s, i,j, umbral)){
+        res = true;
+
+    }
+    return res;
+}
 /************************** EJERCICIO hayQuilombo **************************/
 bool hayQuilombo(sala m, int prof, int freq, int umbral) {
     return false;

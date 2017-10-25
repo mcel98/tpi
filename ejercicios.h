@@ -15,6 +15,14 @@ bool micFunciona(audio s, int freq);
 audio subseq(audio s, int i, int j);
 bool sonTodosCeros(audio a);
 
+//auxiliares para silencios
+
+bool noSuperaUmbral (audio s, int i,int j,int umbral);
+bool noHaySilencioMayor(audio s, int i, int j, int umbral);
+bool esSilencio (audio s,intervalo inter,int i,int j,int umbral);
+bool conPrecision(tiempo t, int p);
+
+
 
 int elAcaparador(sala m, int freq, int prof);
 
